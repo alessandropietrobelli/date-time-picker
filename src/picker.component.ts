@@ -108,6 +108,13 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
     @Input() dateFormat: string = 'YYYY/MM/DD HH:mm';
 
     /**
+     * Format of the date
+     * @default 'y-MM-dd'
+     * @type {String}
+     * */
+    @Input() modelDateFormat: string = 'yyyy-MM-dd HH:mm:ss';
+
+    /**
      * Set the date to highlight and timer picker default value on first opening if the field is blank
      * @default null
      * @type {Date | string}
@@ -189,7 +196,7 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
     }
 
     set max( val: Date | string ) {
-        this._max = this.parseToDate(val);
+        this._max = this.parseToDate(val, false);
     }
 
     /**
@@ -204,7 +211,7 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
     }
 
     set min( val: Date | string ) {
-        this._min = this.parseToDate(val);
+        this._min = this.parseToDate(val, false);
     }
 
     /**
@@ -398,7 +405,7 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
 
     public ngOnInit() {
         this.now = new Date();
-        this.pickerMoment = this.defaultMoment ? this.parseToDate(this.defaultMoment) : this.now;
+        this.pickerMoment = this.defaultMoment ? this.parseToDate(this.defaultMoment, false) : this.now;
 
         this.generateWeekDays();
         this.generateMonthList();
@@ -415,13 +422,13 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
         if (obj instanceof Array) {
             this.value = [];
             for (let o of obj) {
-                let v = this.parseToDate(o);
+                let v = this.parseToDate(o, true);
                 this.value.push(v);
             }
             this.updateCalendar(this.value[0]);
             this.updateTimer(this.value[0]);
         } else {
-            this.value = this.parseToDate(obj);
+            this.value = this.parseToDate(obj, true);
             this.updateCalendar(this.value);
             this.updateTimer(this.value);
         }
@@ -1174,14 +1181,16 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
      * @param {any} val
      * @return {Date}
      * */
-    private parseToDate( val: any ): Date {
+    private parseToDate( val: any, modelFormat: boolean ): Date {
+        debugger;
+        console.log(this.modelDateFormat);
         if (!val) {
             return;
         }
 
         let parsedVal;
         if (typeof val === 'string') {
-            parsedVal = parse(val, this.dateFormat, this.now);
+            parsedVal = parse(val, modelFormat ? this.modelDateFormat : this.dateFormat, this.now);
         } else {
             parsedVal = val;
         }
@@ -1341,7 +1350,7 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
             this.secValue = null;
             return true;
         }
-        let time = value || this.parseToDate(this.defaultMoment);
+        let time = value || this.parseToDate(this.defaultMoment, false);
         let hours = getHours(time);
 
         if (this.hourFormat === '12') {
@@ -1742,18 +1751,18 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
         let value: any;
 
         if (this.isSingleSelection()) {
-            value = this.parseToDate(text);
+            value = this.parseToDate(text, false);
         } else if (this.isMultiSelection()) {
             let tokens = text.split(',');
             value = [];
             for (let token of tokens) {
-                value.push(this.parseToDate(token.trim()));
+                value.push(this.parseToDate(token.trim(), false));
             }
         } else if (this.isRangeSelection()) {
             let tokens = text.split(' - ');
             value = [];
             for (let i = 0; i < tokens.length; i++) {
-                value[i] = this.parseToDate(tokens[i].trim());
+                value[i] = this.parseToDate(tokens[i].trim(), false);
             }
         }
 

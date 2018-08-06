@@ -23,6 +23,7 @@ export declare class DateTimePickerComponent implements OnInit, OnDestroy, Contr
     autoClose: boolean;
     dataType: 'string' | 'date';
     dateFormat: string;
+    modelDateFormat: string;
     defaultMoment: Date | string;
     disabled: boolean;
     disabledDates: Date[];
@@ -121,7 +122,7 @@ export declare class DateTimePickerComponent implements OnInit, OnDestroy, Contr
     private alignDialog();
     private bindDocumentClickListener();
     private unbindDocumentClickListener();
-    private parseToDate(val);
+    private parseToDate(val, modelFormat);
     private generateCalendar();
     private generateWeekDays();
     private generateMonthList();
