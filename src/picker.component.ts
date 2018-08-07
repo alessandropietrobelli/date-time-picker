@@ -521,9 +521,20 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
      * */
     public onInputFocus( event: any ): void {
         this.focus = true;
+        this.show(event);
         this.onFocus.emit(event);
         event.preventDefault();
         return;
+    }
+
+    /**
+     * Set the element on Tab keydown
+     * @param {any} event
+     * @return {void}
+     * */
+    public onTabPressed( event: any ): void {
+        console.log(event);
+        this.hide(event);
     }
 
     /**
@@ -1182,8 +1193,6 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
      * @return {Date}
      * */
     private parseToDate( val: any, modelFormat: boolean ): Date {
-        debugger;
-        console.log(this.modelDateFormat);
         if (!val) {
             return;
         }
@@ -1203,7 +1212,6 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
      * @return {void}
      * */
     private generateCalendar(): void {
-
         if (!this.pickerMoment) {
             return;
         }

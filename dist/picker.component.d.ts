@@ -96,6 +96,7 @@ export declare class DateTimePickerComponent implements OnInit, OnDestroy, Contr
     onInputUpdate(event: any): void;
     onInputClick(event: any): void;
     onInputFocus(event: any): void;
+    onTabPressed(event: any): void;
     onInputBlur(event: any): void;
     onDialogClick(event: any): void;
     onConfirmClick(event: any): void;

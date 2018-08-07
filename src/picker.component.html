@@ -19,14 +19,15 @@
                [value]="formattedValue"
                [readonly]="readonlyInput"
                (focus)="onInputFocus($event)" (blur)="onInputBlur($event)"
-               (click)="onInputClick($event)" (input)="onInputUpdate($event)">
+               (click)="onInputClick($event)" (input)="onInputUpdate($event)"
+               (keydown.Tab)="onTabPressed($event)">
         <i *ngIf="!hideClearButton"
            aria-label="Clear Input Value"
            class="owl-dateTime-cancel icon icon-owl-cancel" [hidden]="!formattedValue" (click)="clearValue($event)"></i>
     </div>
     <!-- Workaround of ng-content default content (angular issue #12530) -->
     <div [ngClass]="{'owl-dateTime-customTemp': customTemp.children.length !== 0}" #customTemp
-         (click)="onInputClick($event)">
+         (click)="onInputClick($event)" >
         <ng-content></ng-content>
     </div>
     <div class="owl-dateTime-dialog owl-state-default owl-corner-all"
