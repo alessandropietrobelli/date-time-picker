@@ -798,7 +798,7 @@ var DateTimePickerComponent = (function () {
                 for (var _i = 0, _a = this.value; _i < _a.length; _i++) {
                     var v = _a[_i];
                     if (v) {
-                        formatted.push(date_fns_1.format(v, this.dateFormat, { locale: this.locale.dateFns }));
+                        formatted.push(date_fns_1.format(v, this.modelDateFormat ? this.modelDateFormat : this.dateFormat, { locale: this.locale.dateFns }));
                     }
                     else {
                         formatted.push(null);
@@ -807,7 +807,7 @@ var DateTimePickerComponent = (function () {
                 this.onModelChange(formatted);
             }
             else {
-                this.onModelChange(date_fns_1.format(this.value, this.dateFormat, { locale: this.locale.dateFns }));
+                this.onModelChange(date_fns_1.format(this.value, this.modelDateFormat ? this.modelDateFormat : this.dateFormat, { locale: this.locale.dateFns }));
             }
         }
         return true;

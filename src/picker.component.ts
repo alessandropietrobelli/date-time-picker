@@ -1398,14 +1398,14 @@ export class DateTimePickerComponent implements OnInit, OnDestroy, ControlValueA
                 let formatted = [];
                 for (let v of this.value) {
                     if (v) {
-                        formatted.push(format(v, this.dateFormat, {locale: this.locale.dateFns}));
+                        formatted.push(format(v, this.modelDateFormat ? this.modelDateFormat : this.dateFormat, {locale: this.locale.dateFns}));
                     } else {
                         formatted.push(null);
                     }
                 }
                 this.onModelChange(formatted);
             } else {
-                this.onModelChange(format(this.value, this.dateFormat, {locale: this.locale.dateFns}));
+                this.onModelChange(format(this.value, this.modelDateFormat ? this.modelDateFormat : this.dateFormat, {locale: this.locale.dateFns}));
             }
         }
         return true;
